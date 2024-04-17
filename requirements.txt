@@ -9,3 +9,6 @@ pycaret
 mlflow
 seaborn
 nbconvert
+nltk
+goose3
+spacy

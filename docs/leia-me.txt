@@ -8,3 +8,7 @@ source venv/bin/activate
 
 Comando executar o requirements
 pip install -r requirements.txt
+
+Se precisar de algum pacote que não esteja listado no arquivo requirements.txt, recomendo que adicione o nome do pacote no arquivo e execute novamente o comando de instalação do requirements.
+Isso garantirá que todas as dependências necessárias estejam instaladas corretamente em seu ambiente.
+
