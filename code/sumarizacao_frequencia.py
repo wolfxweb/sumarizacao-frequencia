@@ -63,14 +63,7 @@ def sumarizacao_frequencia():
         
         st.write("A remoção de acentuação está sendo realizada utilizando o unicodedata do python.") 
         st.write("Os acentos removidos incluem: Agudo (´), Circunflexo (^), Grave (`), Tilde (~), Trema (¨) e Cedilha (¸).")
-        texto_exemplo_inicio ="""A inteligência artificial é a inteligência similar à humana.
-                                    Definem como o estudo de agente artificial com inteligência.
-                                    Ciência e engenharia de produzir máquinas com inteligência.
-                                    Resolver problemas e possuir inteligência.
-                                    Relacionada ao comportamento inteligente.
-                                    Construção de máquinas para raciocinar.
-                                    Aprender com os erros e acertos.
-                                    Inteligência artificial é raciocinar nas situações do cotidiano."""
+        texto_exemplo_inicio ="""Processamento de língua natural (PLN) é uma subárea da ciência da computação, inteligência artificial e da linguística que estuda os problemas da geração e compreensão automática de línguas humanas naturais. Sistemas de geração de língua natural convertem informação de bancos de dados de computadores em linguagem compreensível ao ser humano e sistemas de compreensão de língua natural convertem ocorrências de linguagem humana em representações mais formais, mais facilmente manipuláveis por programas de computador. Alguns desafios do PLN são compreensão de língua natural, fazer com que computadores extraiam sentido de linguagem humana ou natural e geração de língua natural"""
         st.divider()             
        
         # Adicionando um campo de entrada de texto (text area)
@@ -93,13 +86,13 @@ def sumarizacao_frequencia():
            
            st.write('Texto Processado:')
            st.write(texto_processado)
-        
+           st.divider()  
            st.write(f"Frequência maxíma (Número de vezes que a mesma palavra ocorre no documento): {frequencia_maxima}")
-           
+           st.divider() 
            st.subheader('Frequência das palavras')
            st.write('Frequência das palavras: As palavras que aparecem com mais frequência no texto original geralmente são aquelas que carregam mais significado e relevância. Portanto, ao analisar a frequência das palavras, podemos identificar quais são os termos mais importantes para incluir na sumarização.')
            st.write(fre_palavras)
-           
+           st.divider() 
            for palavra in peso_palavras.keys():
                peso_palavras[palavra] = (peso_palavras[palavra] / frequencia_maxima)
            st.subheader('Pesos das palavras')
