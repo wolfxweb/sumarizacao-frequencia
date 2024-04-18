@@ -4,6 +4,9 @@ import nltk
 import string
 import pandas as pd
 import unicodedata
+import heapq
+import math
+
 
 def remove_acentuacao(texto):
     # Remove a acentuação usando a biblioteca unicodedata
@@ -55,9 +58,11 @@ def sumarizacao_frequencia():
             # Exibir a tabela de stopwords com rolagem dentro do expander
             st.write("Aqui estão as stopwords em português:")
             st.table(df_stopwords)  
+        st.write("Para remover a pontuação estaremos utilizando a constante punctuation modulo string do python, que contém todos os caracteres de pontuação definidos no conjunto de caracteres ASCII ")    
         st.write(f"Lista pontuações a que serão removidas:  {string.punctuation}")
         
-        st.write("A remoção de acentuação está sendo realizada utilizando a biblioteca unicodedata. Os acentos removidos incluem: Agudo (´), Circunflexo (^), Grave (`), Tilde (~), Trema (¨) e Cedilha (¸).") 
+        st.write("A remoção de acentuação está sendo realizada utilizando o unicodedata do python.") 
+        st.write("Os acentos removidos incluem: Agudo (´), Circunflexo (^), Grave (`), Tilde (~), Trema (¨) e Cedilha (¸).")
         texto_exemplo_inicio ="""A inteligência artificial é a inteligência similar à humana.
                                     Definem como o estudo de agente artificial com inteligência.
                                     Ciência e engenharia de produzir máquinas com inteligência.
@@ -81,25 +86,60 @@ def sumarizacao_frequencia():
         if st.button('Enviar'):
            texto_processado = processaTexto(texto_original_inicio, remove_pontuacao_flag, remove_stopwords_flag, remove_acentuacao_flag)
            frequencia_palavras = nltk.FreqDist(nltk.word_tokenize(texto_processado))
-           pessos_palavras = frequencia_palavras
-           frequencia_maxima = max(pessos_palavras.values())
-           for palavra in pessos_palavras.keys():
-                 pessos_palavras[palavra] = (pessos_palavras[palavra] / frequencia_maxima)
-           
+           fre_palavras = frequencia_palavras
+           peso_palavras = frequencia_palavras
+           frequencia_maxima = max(peso_palavras.values())
+          
            
            st.write('Texto Processado:')
            st.write(texto_processado)
+        
+           st.write(f"Frequência maxíma (Número de vezes que a mesma palavra ocorre no documento): {frequencia_maxima}")
+           
            st.subheader('Frequência das palavras')
            st.write('Frequência das palavras: As palavras que aparecem com mais frequência no texto original geralmente são aquelas que carregam mais significado e relevância. Portanto, ao analisar a frequência das palavras, podemos identificar quais são os termos mais importantes para incluir na sumarização.')
-           st.write(frequencia_palavras)
-           st.subheader('Pesos das palavras')
-           st.write('Além da frequência das palavras, também consideramos o peso delas com base no TF-IDF. Esse método leva em conta não apenas a frequência de uma palavra em um texto, mas também a frequência dela em relação a outros documentos. Isso é útil porque algumas palavras podem ser comuns em geral, mas têm menos peso se aparecerem em muitos documentos. Por outro lado, palavras menos comuns em geral, mas que aparecem frequentemente em um texto específico, podem ter um peso maior.')
-           st.write(pessos_palavras)
+           st.write(fre_palavras)
            
+           for palavra in peso_palavras.keys():
+               peso_palavras[palavra] = (peso_palavras[palavra] / frequencia_maxima)
+           st.subheader('Pesos das palavras')
+           markdown_content = """
+            Além da frequência das palavras, também consideramos o peso delas com base no TF-IDF.
+            Esse método leva em conta não apenas a frequência de uma palavra em um texto, mas também a frequência dela em relação a outros documentos. 
+            Isso é útil porque algumas palavras podem ser comuns em geral, mas têm menos peso se aparecerem em muitos documentos.
+            Por outro lado, palavras menos comuns em geral, mas que aparecem frequentemente em um texto específico, podem ter um peso maior.'         
+           
+            A fórmula TF-IDF (Term Frequency-Inverse Document Frequency) é uma medida estatística utilizada para avaliar a importância de uma palavra em um documento em relação a um corpus. 
+            
+            Ela é calculada da seguinte forma: peso = frequência da palavra / frequência máxima
+           
+            """
+           st.markdown(markdown_content)
+           st.write(peso_palavras)
+           lista_sentencas = nltk.sent_tokenize(texto_original_inicio)
+           
+           
+           st.write("Verificando a pontução de cada frase")
+           #verificando qual das são as frases mais relevantes considerando a soma das palavras
+           nota_sentencas = {}
+           for sentenca in lista_sentencas:
+             for palavra in nltk.word_tokenize(sentenca.lower()):
+                #print(palavra)
+                if palavra in frequencia_palavras.keys():
+                    if sentenca not in nota_sentencas.keys():
+                        nota_sentencas[sentenca] = frequencia_palavras[palavra]
+                    else:
+                        nota_sentencas[sentenca] += frequencia_palavras[palavra] 
+           st.write(nota_sentencas)
+           #Definiando a quantidade de frases que será utuilizada no resumo neste caso irá reduzir aproximadamente 50% do texto
+           percetualTexto =  len(lista_sentencas)/2
+           percetualTexto = math.ceil(percetualTexto)
+           melhores_sentencas = heapq.nlargest(percetualTexto, nota_sentencas, key=nota_sentencas.get)
+           resumo = ' '.join(melhores_sentencas)
+           st.write(f"Resumo final")
+           st.write(resumo)
            
     with Sumarizacao:
-        st.header("Sumarizacao")  
-        texto_exemplo_sumarizacao = """A inteligência artificial é a inteligência similar à humana. 
-                                       Definem como o estudo de agente artificial com inteligência. 
-                                       Ciência e engenharia de produzir máquinas com inteligência """
+        st.header("")  
+        
       

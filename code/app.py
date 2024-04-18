@@ -13,13 +13,11 @@ def main():
    # st.sidebar.title('Menu')
 
     # Definindo o menu lateral
-    pagina_selecionada = st.sidebar.radio('Menu', [  'Página Inicial', 'Sumarização de Frequência'])
+    pagina_selecionada = st.sidebar.radio('Menu', [  'Sumarização de Frequência'])
  
 
     # Verificando a página selecionada e chamando a função correspondente
-    if pagina_selecionada == 'Página Inicial':
-        pagina_inicial()
-    elif pagina_selecionada == 'Sumarização de Frequência':
+    if pagina_selecionada == 'Sumarização de Frequência':
         sumarizacao_frequencia()
  
 
