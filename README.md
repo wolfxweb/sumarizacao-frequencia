@@ -21,12 +21,14 @@ Este projeto utiliza o Streamlit para criar uma interface web interativa onde os
 
 ## Instalação e Execução
 1. **Clone o Repositório:**
-
-2. **Crie um Ambiente Virtual:**
+  ```
+   https://github.com/wolfxweb/sumarizacao-frequencia.git
+  ```
+3. **Crie um Ambiente Virtual:**
     cd seu_projeto
     python -m venv venv
 
-3. **Ative o Ambiente Virtual:**
+4. **Ative o Ambiente Virtual:**
 - No Windows:
   ```
   venv\Scripts\activate
