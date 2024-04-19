@@ -43,11 +43,12 @@ pip install -r requirements.txt
 
 
 5. **Execute o Streamlit:**
-streamlit run app.py
+  ```
+   streamlit run app.py
+  ```
 
 
-
-6. **Acesse a Aplicação:**
+7. **Acesse a Aplicação:**
 Acesse a aplicação no navegador usando o link fornecido pelo Streamlit, geralmente é algo como `http://localhost:8501`.
 
 ## Contribuição
