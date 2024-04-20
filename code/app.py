@@ -2,12 +2,14 @@ import streamlit as st
 from pagina_inicial import pagina_inicial
 from sumarizacao_frequencia import sumarizacao_frequencia
 
+import streamlit as st
 import re
 import nltk
 import string
+import pandas as pd
+import unicodedata
 import heapq
-from goose3 import Goose
-import spacy
+import math
 
 def main():
    # st.sidebar.title('Menu')
