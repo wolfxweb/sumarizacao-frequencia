@@ -10,6 +10,8 @@ import pandas as pd
 import unicodedata
 import heapq
 import math
+import nltk
+nltk.download('stopwords')
 
 def main():
    # st.sidebar.title('Menu')
