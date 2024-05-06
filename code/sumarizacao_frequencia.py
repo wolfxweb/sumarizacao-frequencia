@@ -38,6 +38,7 @@ def processaTexto(texto, pontuacao, remove_stopwords, remove_acentuacao_flag):
   
     return texto_processado
 
+
 def sumarizacao_frequencia():
     st.title('Sumarização de Frequência')
 
